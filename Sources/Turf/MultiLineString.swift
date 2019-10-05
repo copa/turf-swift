@@ -29,7 +29,7 @@ public struct MultiLineStringFeature: GeoJSONObject {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: GeoJSONCodingKeys.self)
         geometry = try container.decode(MultiLineString.self, forKey: .geometry)
-        properties = try container.decode([String: AnyJSONType]?.self, forKey: .properties)
+        properties = try container.decodeIfPresent([String: AnyJSONType].self, forKey: .properties)
         identifier = try container.decodeIfPresent(FeatureIdentifier.self, forKey: .identifier)
     }
     
