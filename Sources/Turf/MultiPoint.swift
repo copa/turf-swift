@@ -29,7 +29,11 @@ public struct MultiPointFeature: GeoJSONObject {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: GeoJSONCodingKeys.self)
         geometry = try container.decode(MultiPoint.self, forKey: .geometry)
-        properties = try container.decodeIfPresent([String: AnyJSONType].self, forKey: .properties)
+                if let properties = try container.decodeIfPresent([String: AnyJSONType].self, forKey: .properties) {
+            self.properties = properties
+        } else {
+            self.properties = ["created": AnyJSONType("\(Date())")]
+        }
         identifier = try container.decodeIfPresent(FeatureIdentifier.self, forKey: .identifier)
     }
     

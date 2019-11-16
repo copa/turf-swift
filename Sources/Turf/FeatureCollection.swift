@@ -24,8 +24,8 @@ public struct FeatureCollection: GeoJSONObject {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.features = try container.decode([FeatureVariant].self, forKey: .features)
-        if let props = try container.decodeIfPresent([String: AnyJSONType].self, forKey: .properties) {
-            self.properties = props
+        if let properties = try container.decodeIfPresent([String: AnyJSONType].self, forKey: .properties) {
+            self.properties = properties
         } else {
             self.properties = ["created": AnyJSONType("\(Date())")]
         }
