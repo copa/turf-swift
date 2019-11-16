@@ -29,7 +29,7 @@ public struct PointFeature: GeoJSONObject {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: GeoJSONCodingKeys.self)
         geometry = try container.decode(Point.self, forKey: .geometry)
-                if let properties = try container.decodeIfPresent([String: AnyJSONType].self, forKey: .properties) {
+        if let properties = try container.decodeIfPresent([String: AnyJSONType].self, forKey: .properties) {
             self.properties = properties
         } else {
             self.properties = ["created": AnyJSONType("\(Date())")]
